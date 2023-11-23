@@ -551,7 +551,11 @@ void decode_polygon(mapnik::geometry::geometry<geom_value_type> & geom,
         {
             std::reverse(rings_itr->begin(), rings_itr->end());
         }
-        poly.push_back(std::move(*rings_itr));
+        //poly.push_back(std::move(*rings_itr));
+	auto& ring = poly.exterior_ring;
+        for (const auto& point : *rings_itr) {
+            ring.emplace_back(point.x, point.y);
+        }
     }
     auto num_poly = multi_poly.size();
     if (num_poly == 1)

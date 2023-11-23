@@ -18,7 +18,10 @@ pre_build_check:
 	git clone https://github.com/chromium/gyp ./deps/gyp && cd ./deps/gyp && git checkout $(GYP_REVISION)
 	#git clone https://github.com/refack/GYP.git ./deps/gyp && cd ./deps/gyp && git checkout $(GYP_REVISION)
 
-build/Makefile: pre_build_check ./deps/gyp gyp/build.gyp test/*
+py_dependency:
+	python3 -m pip install six
+
+build/Makefile: pre_build_check py_dependency ./deps/gyp gyp/build.gyp test/*
 	python3 deps/gyp/gyp_main.py gyp/build.gyp -Denable_sse=$(SSE_MATH) --depth=. -DMAPNIK_PLUGINDIR=\"$(shell mapnik-config --input-plugins)\" -Goutput_dir=. --generator-output=./build -f make
 	$(MAKE) -C build/ V=$(V)
 

@@ -221,7 +221,7 @@ struct transform_visitor
             }
             exterior = false;
             mapbox::geometry::linear_ring<std::int64_t> new_ring;
-            new_ring.reserve(ring.size());
+            //new_ring.reserve(ring.size());
             for (auto const& pt : ring)
             {
                 mapbox::geometry::point<std::int64_t> pt2;

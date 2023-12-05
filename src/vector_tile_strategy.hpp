@@ -210,7 +210,8 @@ struct transform_visitor
     {
         bool exterior = true;
         mapbox::geometry::polygon<std::int64_t> new_geom;
-        for (auto const& ring : geom)
+
+        for (auto const& ring : geom.exterior_ring)
         {
             mapnik::box2d<double> ring_bbox = mapnik::geometry::envelope(ring);
             if (!target_clipping_extent_.intersects(ring_bbox))
